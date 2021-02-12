@@ -1,5 +1,8 @@
 ﻿const {Router} =require('express')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const jwtConfig = require('../config/jwtConfig.js')
+
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User.js')
 const router = Router()
@@ -51,8 +54,24 @@ router.post('/login',
 						message: 'Невірні дані при авторизації!'
 					})
 				}
-				const {email, password} = req.body
 
+				const {email, password} = req.body
+				const user = await User.findOne({email})
+				if (!user) {
+					return res.status(400).json({message: 'Користувач з таким email не знайдено'})
+				}
+				const isMatch = await bcrypt.compare(password, user.password)
+				if (!isMatch) {
+					return res.sattus(400).json('Невіриний пароль!')
+				}
+
+				const token = jwt.sign(
+					{userId: user.id},
+					jwtConfig.jwtSecret,
+					{expiresIn: '1h'}
+				)
+
+				res.json({token, userId: user.id})
 
 			} catch (e) {
 				res.status(500).json({message:'Не вийшло увійти в систему, спробуйте ще!'})
