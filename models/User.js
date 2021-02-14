@@ -13,6 +13,7 @@ module.exports= class User {
     static async findOne({email}) {
         /*user:  {id,email, password}*/
         //return user 
+        return null
     }
     static async getAll(){
         const allUsers = await db.query('SELECT * FROM users;')
