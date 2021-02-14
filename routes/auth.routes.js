@@ -7,9 +7,9 @@ const {check, validationResult} = require('express-validator')
 const User = require('../models/User.js')
 const router = Router()
 
-// /api/auth/registr
+// /api/auth/register
 router.post(
-	'/registr',
+	'/register',
 	[
 		check('email', 'Некоректний email').isEmail(),
 		check('password', 'Мінімальна довжина пароля 5 символів')
