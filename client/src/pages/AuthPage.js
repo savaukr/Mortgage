@@ -11,7 +11,7 @@ export const AuthPage =() => {
 	})
 
 	useEffect(() => {
-		//message(error)
+		message(error)
 		clearError()
 	}, [error, message, clearError])
 
@@ -22,8 +22,8 @@ export const AuthPage =() => {
 	const registerHandler =  async () => {
 		try {
 			const data = await request('/api/auth/register', 'POST', {...form})
-			//message(data.message)
-			console.log('data:', data)
+			message(data.message)
+			console.log('data1:', data)
 		} catch (e) {}
 	}
 	return (

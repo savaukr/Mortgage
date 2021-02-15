@@ -32,7 +32,7 @@ router.post(
 			const hachedPassword = await bcrypt.hash(password, 12)
 			const user = new User({ email, hachedPassword })
 			await user.save()
-			res.status(201, {message: 'Користувач створений'} )
+			res.status(201).json({message: 'Користувач створений'})
 
 		} catch (e) {
 			res.status(500).json({message:'Не вийшло зареєструватись, спробуйте ще!'})

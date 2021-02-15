@@ -2,6 +2,6 @@
 
 export const useMessage = () => {
 	return useCallback(text => {
-		window.M.toast({html: text})
+		if (text) window.M.toast({html: text})
 	}, [])
 }

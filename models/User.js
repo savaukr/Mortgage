@@ -2,13 +2,12 @@
 
 module.exports= class User {
  
-    constructor(email, password){
+    constructor({email, hachedPassword}) {
         this.email = email
-        this.password = password 
+        this.password = hachedPassword 
     }
     async save(){
         const newUser = await db.query('INSERT INTO users (email, password) values ($1, $2) RETURNING *', [this.email, this.password]);
-        return newUser;
     }
     static async findOne({email}) {
         /*user:  {id,email, password}*/
