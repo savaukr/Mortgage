@@ -10,9 +10,8 @@ module.exports= class User {
         const newUser = await db.query('INSERT INTO users (email, password) values ($1, $2) RETURNING *', [this.email, this.password]);
     }
     static async findOne({email}) {
-        /*user:  {id,email, password}*/
-        //return user 
-        return null
+        const user = await db.query('SELECT * FROM users WHERE email = $1;', [email])
+        return await user.rows[0]
     }
     static async getAll(){
         const allUsers = await db.query('SELECT * FROM users;')

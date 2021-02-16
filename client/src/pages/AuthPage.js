@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './authPage.css'
 import {useHttp} from '../hooks/http.hook.js'
 import {useMessage} from '../hooks/message.hook.js'
+import {AuthContext} from '../context/AuthContext.js'
+
 
 export const AuthPage =() => {
+	const auth = useContext(AuthContext)
 	const message = useMessage()
 	const {loading, error, request, clearError} = useHttp()
 	const [form, setForm]=useState({
@@ -23,9 +26,16 @@ export const AuthPage =() => {
 		try {
 			const data = await request('/api/auth/register', 'POST', {...form})
 			message(data.message)
-			console.log('data1:', data)
 		} catch (e) {}
 	}
+
+	const loginHandler =  async () => {
+		try {
+			const data = await request('/api/auth/login', 'POST', {...form})
+			auth.login(data.token, data.userId)
+		} catch (e) {}
+	}
+
 	return (
 		<div className="row">
 			<div className="col s6 offset-s3">
@@ -60,6 +70,7 @@ export const AuthPage =() => {
 		          <button 
 		          	className="btn-mrg btn waves-effect waves-light"
 		          	name="sigin"
+		          	onClick  = {loginHandler}
 		          	disabled = {loading}
 		          >
 		          	Ввійти
