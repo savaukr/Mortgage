@@ -1,10 +1,13 @@
 ﻿const {Router} = require('express')
 const Bank = require('../models/Bank.js')
+const auth = require('../middleware/auth.middleware.js')
+const appConfig = require('../config/appConfig.js')
 
 const router = Router()
 
 router.post('/create', async (req, res) => {
 	try {
+		const baseUrl = appConfig.baseUrl
 			// const errors = validationResult(req)
 			// if (!errors.isEmpty()) {
 			// 	return res.status(400).json({
@@ -27,9 +30,9 @@ router.post('/create', async (req, res) => {
 		}
 })
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
-		const banks = await Bank.getAll({owner:null}) // owner: ??????????
+		const banks = await Bank.getAll({owner:req.user.userId}) // may be without owner????
 		res.json(banks)
 	} catch (e) {
 			res.status(500).json({message:'Не вийшло зчитати список банків, спробуйте ще!'})

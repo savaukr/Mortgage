@@ -5,7 +5,7 @@ import {useMessage} from '../hooks/message.hook.js'
 import {AuthContext} from '../context/AuthContext.js'
 
 
-export const AuthPage =() => {
+export const AuthPage = () => {
 	const auth = useContext(AuthContext)
 	const message = useMessage()
 	const {loading, error, request, clearError} = useHttp()

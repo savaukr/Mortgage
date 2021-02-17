@@ -16,8 +16,8 @@ module.exports= class Bank {
         const bank = await db.query('SELECT * FROM banks WHERE bank = $1;', [id])
         return await bank.rows[0]
     }
-    static async getAll(){
-        const allBanks = await db.query('SELECT * FROM banks;')
+    static async getAll({owner}){
+        const allBanks = await db.query('SELECT * FROM banks WHERE userId = $1;', [owner])
         return await allBanks.rows;
     }
     static async delete(id) {

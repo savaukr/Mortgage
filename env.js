@@ -1,9 +1,9 @@
-﻿//import dotenv from 'dotenv';
-const dotenv = require('dotenv')
+﻿const dotenv = require('dotenv')
 dotenv.config();
 
 const env = {
   app: {
+    baseUrl: process.env.BaseUrl,
     port: process.env.APP_PORT,
     socketPort: process.env.SOCKET_PORT,
   },
@@ -18,6 +18,5 @@ const env = {
     jwtSecret: process.env.JWT_SECRET
   }
 };
-
-//export default env; 
+ 
 module.exports = env;
