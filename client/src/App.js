@@ -10,7 +10,7 @@ import 'materialize-css'
 
 function App() {
   const {token, login, logout, userId} = useAuth()
-  const isAuthenticated = true //!!token
+  const isAuthenticated =!!token
   const routes = useRoutes(isAuthenticated)
   return (
   	<AuthContext.Provider value={{
