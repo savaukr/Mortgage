@@ -5,9 +5,14 @@ const appConfig = require('../config/appConfig.js')
 
 const router = Router()
 
-router.post('/create', async (req, res) => {
+router.post('/create', auth, async (req, res) => {
 	try {
-		const baseUrl = appConfig.baseUrl
+		const  { name, interest, rate, maxLoan, 
+			    minPayment, loanTerm } = req.body
+		const  userId = req.user.userId
+		const bank = new Bank({name, interest, rate, maxLoan, minPayment, loanTerm, userId})
+		const createdBank = await bank.save()
+		res.json()
 			// const errors = validationResult(req)
 			// if (!errors.isEmpty()) {
 			// 	return res.status(400).json({
@@ -32,8 +37,10 @@ router.post('/create', async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
 	try {
-		const banks = await Bank.getAll({owner:req.user.userId}) // may be without owner????
-		res.json(banks)
+		const banks = await Bank.getAll()
+		//const banks = await Bank.findByUserId({owner:req.user.userId}) // may be without owner????
+		res.status(201).json({message: "Bank is created!!!"})
+		//res.status(201).json(JSON.stringify(banks))
 	} catch (e) {
 			res.status(500).json({message:'Не вийшло зчитати список банків, спробуйте ще!'})
 	}
