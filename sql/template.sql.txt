@@ -5,4 +5,18 @@ create TABLE users
 	password VARCHAR (255)
 );
 
+create TABLE banks
+(
+    id SERIAL PRIMARY KEY,
+	name VARCHAR (255) UNIQUE NOT NULL,
+	interest NUMERIC (9,3),
+	rate NUMERIC (9,3),
+	maxloan NUMERIC (12,3),
+	minpayment NUMERIC (12,3),
+	loanterm NUMERIC (5,3),
+	rate VARCHAR (255)
+	userId INTEGER REFERENCES user (id)
+);
+
+
 
