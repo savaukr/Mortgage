@@ -1,27 +1,39 @@
-import React from 'react'
+import React, {useState, useContext, useCallback, useEffect} from 'react'
 import {useHttp} from '../hooks/http.hook.js'
+import {AuthContext} from '../context/AuthContext.js'
+import {Loader} from '../components/Loader.js'
+import {BanksList} from '../components/BanksList.js'
 
 export const BanksManagePage = () => {
+	const [banks, setBanks] = useState([])
+	const {request, loading} = useHttp()
+	const {token} = useContext(AuthContext)
 
-	const {request} = useHttp()
-
-	const createList = async () => {
+	const fetchBanks = useCallback(async () => {
 		try {
-			const data = await request('/api/bank/banks', 'GET')
+			const data = await request('/api/bank/banks', 'GET', null, {
+				Authorization: `Bearer ${token}`
+			})
+			setBanks(data)
 		} catch (e) {}
-	}
+	}, [token. request])
 
-	const findBank = async () => {
-		try {
-			const data = await request(`/api/bank/banks/${15}`, 'GET')
-		} catch (e) {}
+	useEffect(() => {
+		fetchBanks()
+	}, [fetchBanks])
+
+	// const findBank = async () => {
+	// 	try {
+	// 		const data = await request(`/api/bank/banks/${15}`, 'GET')
+	// 	} catch (e) {}
+	// }
+	if (loading) {
+		return <Loader />
 	}
-	
 
 	return (
-		<div>
-			<h1 onClick={createList}>Banks Manage Page</h1>
-			<h2 onClick={findBank}>find 14 bank</h2>
-		</div>
+		<>
+			{!loading && <BanksList banks={banks} />}
+		</>
 	)
 }

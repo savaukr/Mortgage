@@ -9,15 +9,12 @@ router.post('/create', async (req, res) => {
 	try {
 
 		const  { name, interest, rate, maxLoan, 
-		 	    minPayment, loanTerm } = req.body
-		//const  userId = req.user.userId
-		const  userId = JSON.parse(localStorage.getItem('userData')).userId
-		console.log('userId:', userId)
-		
+		 	    minPayment, loanTerm, userId } = req.body
+		//const  userId = req.user.userId	
 		const bank = new Bank({name, interest, rate, maxLoan, minPayment, loanTerm, userId})
 
 		const createdBank = await bank.save()
-		res.status(201).json({message: 'Банк створений'})
+		res.status(201).json({...createdBank, message: 'Банк створений'})
 		
 	} catch (e) {
 			res.status(500).json({message:'Не вийшло створити банк, спробуйте ще!'})
@@ -27,8 +24,8 @@ router.post('/create', async (req, res) => {
 router.get('/banks/:id', async (req, res) => {
 	try {
 		const id = req.params.id
-		const banks = await Bank.findById({id})
-		res.status(201).json(banks)
+		const bank = await Bank.findById({id})
+		res.status(201).json(bank)
 
 	} catch (e) {
 			res.status(500).json({message:'Не вийшло знайти банк, спробуйте ще!'})

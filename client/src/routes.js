@@ -18,6 +18,10 @@ export const useRoutes = isAuthenticated => {
 				<Route path="/calculator/:id" >
 					<CalculatorBankPage />
 				</Route>
+				<Route path="/create/:id" >
+					<CreateBankPage />
+				</Route>
+				
 				<Redirect to="/banks" />
 			</Switch>
 		)

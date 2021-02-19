@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext } from 'react'
+import {useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext.js'
 import {useHttp} from '../hooks/http.hook.js'
 import {useMessage} from '../hooks/message.hook.js'
@@ -6,13 +7,14 @@ import {useMessage} from '../hooks/message.hook.js'
 import './createBankPage.css'
 
 export const CreateBankPage = () => {
-
+	const history = useHistory()
 	const auth = useContext(AuthContext)
 	const {loading, error, request, clearError} = useHttp()
 	const message = useMessage()
+	const userId = JSON.parse(localStorage.getItem('userData')).userId
 	const initialState = {
 		name:'', interest:'', rate:'',
-		maxLoan: '', minPayment:'', loanTerm:''
+		maxLoan: '', minPayment:'', loanTerm:'', userId: userId
 	}
 	const [form, setForm] = useState(initialState)
 	useEffect(() => {
@@ -27,10 +29,10 @@ export const CreateBankPage = () => {
 	const createHandler = async () => {
 		try {
 			const data = await request('/api/bank/create', 'POST', {...form}, {
-				authorization:`Bearer ${auth.token}`
+				Authorization:`Bearer ${auth.token}`
 			})
 			message(data.message)
-			setForm(initialState)
+			history.push(`/calculator/${data[0].id}`)
 		} catch (e) {}
 	}
 
