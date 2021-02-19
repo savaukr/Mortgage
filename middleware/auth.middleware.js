@@ -6,12 +6,15 @@ module.exports = (req, res, next) => {
 		return next()
 	}
 	try {
-		
 		const token = req.headers.authorization.split(' ')[1] // "Bearer TOKEN"
 		if (!token) {
+
 			return res.status(401).json({message: 'Авторизація відсутня'})
 		}
+
 		const decoded = jwt.verify(token, jwtConfig.jwtSecret)
+		console.log('decoded:', decoded)
+
 		req.user = decoded
 		next()
 
