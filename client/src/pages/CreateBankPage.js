@@ -19,8 +19,20 @@ export const CreateBankPage = () => {
 	}
 
 	return ( 
-		<div>
-			<h1 onClick={createHandler}>Create bank Page</h1>
+		<div className="row">
+			<div className="col s6 offset-s3">
+				<div className="input-field">
+			      <input 
+			        placeholder="Введіть назву банку"
+			        id="name"
+			        type="text"
+			        name="name"
+			        onChange={(event)=>{event.target.value = form.name}}
+			      />
+			      <label htmlFor="password">Назва банку:</label>
+			    </div>
+				<h1 onClick={createHandler}>Create bank Page</h1>
+			</div>
 		</div>
 	)
 }

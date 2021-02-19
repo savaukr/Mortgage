@@ -14,8 +14,8 @@ module.exports= class Bank {
     async save(){
         const newBank = await db.query(
 	        'INSERT INTO banks (name, interest, rate, maxloan, 	minpayment, loanterm, userid ) values ($1, $2, $3, $4, $5, $6, $7) RETURNING * ;',
-	        [this.name, this.interest, this.rate, this.maxloan,
-	         this.minpayment, this.loanterm, this.userid]
+	        [this.name, this.interest, this.rate, this.maxLoan,
+	         this.minPayment, this.loanTerm, this.userId]
 	    )
         return await newBank.rows
     }
@@ -29,6 +29,11 @@ module.exports= class Bank {
     //     const banks = await db.query('SELECT * FROM banks WHERE userId = $1;', [owner])
     //     return await banks.rows[0]
     // }
+    static async findById({id}) {
+        const bank = await db.query('SELECT * FROM banks WHERE id = $1;', [id])
+        console.log('bank:', bank.rows)
+        return await bank.rows
+    }
 
     static async findByName({name}) {
         const bank = await db.query('SELECT * FROM banks WHERE name = $1;', [name])

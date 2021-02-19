@@ -14,8 +14,7 @@ create TABLE banks
 	maxloan NUMERIC (12,3),
 	minpayment NUMERIC (12,3),
 	loanterm NUMERIC (5,3),
-	rate VARCHAR (255)
-	userId INTEGER REFERENCES user (id)
+	userId INTEGER REFERENCES users (id)
 );
 
 
