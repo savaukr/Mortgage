@@ -22,11 +22,6 @@ export const BanksManagePage = () => {
 		fetchBanks()
 	}, [fetchBanks])
 
-	// const findBank = async () => {
-	// 	try {
-	// 		const data = await request(`/api/bank/banks/${15}`, 'GET')
-	// 	} catch (e) {}
-	// }
 	if (loading) {
 		return <Loader />
 	}

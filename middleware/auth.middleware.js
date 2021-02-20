@@ -13,8 +13,6 @@ module.exports = (req, res, next) => {
 		}
 
 		const decoded = jwt.verify(token, jwtConfig.jwtSecret)
-		console.log('decoded:', decoded) // mistake in "decoded"
-
 		req.user = decoded
 		next()
 

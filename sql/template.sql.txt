@@ -9,11 +9,10 @@ create TABLE banks
 (
     id SERIAL PRIMARY KEY,
 	name VARCHAR (255) UNIQUE NOT NULL,
-	interest NUMERIC (9,3),
-	rate NUMERIC (9,3),
+	interest NUMERIC (6,3),
 	maxloan NUMERIC (12,3),
 	minpayment NUMERIC (12,3),
-	loanterm NUMERIC (5,3),
+	loanterm NUMERIC (8,3),
 	userId INTEGER REFERENCES users (id)
 );
 
