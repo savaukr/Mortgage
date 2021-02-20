@@ -2,10 +2,10 @@
 import {CreateBankPage} from './CreateBankPage.js'
 
 export const UpdateBankPage = () => {
-
+//const bankId = useParams().id
 	return (
 		<>
-			<CreateBankPage isCreate = {false} />
+			<CreateBankPage isCreate = {false}  />
 		</>
 		
 	)
