@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "mortgage",
   "version": "1.0.0",
   "description": "motgage calculator",
@@ -34,7 +34,6 @@
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "path": "^0.12.7",
-    "cross-env": "^7.0.3",
     "pg": "^8.5.1"
   },
   "devDependencies": {
