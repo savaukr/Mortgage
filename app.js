@@ -2,8 +2,10 @@ const express = require('express')
 const path = require('path')
 //const config = require('config')
 //const PORT = config.get('port') || 5000
-const appConfig = require('./config/appConfig.js')
-const PORT = appConfig.port || 5000
+//const appConfig = require('./config/appConfig.js')
+//const PORT = appConfig.port || 5000
+
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -23,7 +25,7 @@ async function start() {
 		//app.listen(PORT, ()=>console.log(`App has been started on port ${PORT}...`))	
 		app.listen(PORT, err => {
     		if(err) throw err;
-			    console.log("%c Server running", "color: green");
+			    console.log("%c Server running on port:", PORT);
 		});
 	} catch (e) {
 		console.log("Server Error ", e.message )
